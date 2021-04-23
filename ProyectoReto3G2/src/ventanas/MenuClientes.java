@@ -22,7 +22,7 @@ import java.awt.event.ActionEvent;
 import java.awt.Toolkit;
 import javax.swing.JList;
 
-public class Menu extends JFrame implements ActionListener {
+public class MenuClientes extends JFrame implements ActionListener {
 
 	/**
 	 * 
@@ -38,10 +38,13 @@ public class Menu extends JFrame implements ActionListener {
 	int lastX, lastY;
 	private JLabel lblDesplazarIzq;
 	private JLabel lblDesplazarDch;
-	private JLabel lblNoSeleccion;
 	private JButton btnSalir;
 
 	private JLabel imgClientes;
+	private JButton btnAgregarUsuario;
+	private JLabel lblAgregar;
+	private JButton btnEliminarUsuario;
+	private JLabel lblEliminar;
 	private JButton btnCerrar;
 	private JLabel lblCerrar;
 	private JLabel imgCerrar;
@@ -49,7 +52,14 @@ public class Menu extends JFrame implements ActionListener {
 	private JLabel clickCerrar;
 	private JButton btnTrabajadores;
 	private JLabel imgTrabajadores;
-
+	private JList lstClientes;
+	private JLabel imgLista;
+	private JButton btnIzq;
+	private JButton btnDch;
+	private JLabel focusIzq;
+	private JLabel focusDch;
+	private JLabel clickIzq;
+	private JLabel clickDch;
 	/**
 	 * Launch the application.
 	 */
@@ -57,7 +67,7 @@ public class Menu extends JFrame implements ActionListener {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu frame = new Menu();
+					MenuClientes frame = new MenuClientes();
 					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
@@ -69,7 +79,7 @@ public class Menu extends JFrame implements ActionListener {
 	/**
 	 * Create the frame.
 	 */
-	public Menu() {
+	public MenuClientes() {
 		setIconImage(Toolkit.getDefaultToolkit().getImage("C:\\PROG\\ProyectoReto3G2\\src\\imagenes\\retoLogo_orange.png"));
 
 		getContentPane().setLayout(null);
@@ -130,17 +140,17 @@ public class Menu extends JFrame implements ActionListener {
 
 		clickBoton = new JLabel("");
 		clickBoton.setIcon(new ImageIcon("C:\\PROG\\ProyectoReto3G2\\src\\imagenes\\seleccionMenu.png"));
-		clickBoton.setBounds(-7, 138, 283, 75);
+		clickBoton.setBounds(-3, 137, 283, 75);
 		panelIzq.add(clickBoton);
 		
 		focusBoton = new JLabel("");
 		focusBoton.setIcon(new ImageIcon("C:\\PROG\\ProyectoReto3G2\\src\\imagenes\\focusMenu.png"));
-		focusBoton.setBounds(-7, 138, 283, 75);
+		focusBoton.setBounds(-5, 138, 283, 75);
 		panelIzq.add(focusBoton);
 
 		panelDch = new JPanel();
 		panelDch.setBackground(new Color(245,245,245));
-		panelDch.setBounds(312, 26, 939, 487);
+		panelDch.setBounds(312, 26, 913, 487);
 		contentPane.add(panelDch);
 		panelDch.setLayout(null);
 		
@@ -155,11 +165,39 @@ public class Menu extends JFrame implements ActionListener {
 		btnSalir.setContentAreaFilled(false);
 		btnSalir.setFocusPainted(false);
 		panelDch.add(btnSalir);
+				
+		lblAgregar = new JLabel("Agregar");
+		lblAgregar.setVerticalAlignment(SwingConstants.TOP);
+		lblAgregar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblAgregar.setFont(new Font("Segoe UI", Font.PLAIN, 21));
+		lblAgregar.setBounds(234, 345, 98, 30);
+		panelDch.add(lblAgregar);
+		
 
-		lblNoSeleccion = new JLabel("No se ha seleccionado ninguna opcion.");
-		lblNoSeleccion.setFont(new Font("Segoe UI", Font.PLAIN, 25));
-		lblNoSeleccion.setBounds(289, 229, 447, 34);
-		panelDch.add(lblNoSeleccion);
+		btnAgregarUsuario = new JButton("");
+		btnAgregarUsuario.setBackground(new Color(199, 199, 199));
+				
+		btnAgregarUsuario.setIcon(new ImageIcon("C:\\PROG\\ProyectoReto3G2\\src\\imagenes\\agregarUsuario.png"));
+		btnAgregarUsuario.setBounds(221, 376, 126, 80);
+		btnAgregarUsuario.setBorderPainted(false);
+		btnAgregarUsuario.setFocusPainted(false);
+		panelDch.add(btnAgregarUsuario);
+				
+		
+		lblEliminar = new JLabel("Eliminar");
+		lblEliminar.setHorizontalAlignment(SwingConstants.CENTER);
+		lblEliminar.setVerticalAlignment(SwingConstants.TOP);
+		lblEliminar.setFont(new Font("Segoe UI", Font.PLAIN, 21));
+		lblEliminar.setBounds(417, 347, 98, 30);
+		panelDch.add(lblEliminar);
+		
+		btnEliminarUsuario = new JButton("");
+		btnEliminarUsuario.setIcon(new ImageIcon("C:\\PROG\\ProyectoReto3G2\\src\\imagenes\\eliminarUsuario.png"));
+		btnEliminarUsuario.setBackground(new Color(199, 199, 199));
+		btnEliminarUsuario.setBounds(404, 376, 126, 80);
+		btnEliminarUsuario.setBorderPainted(false);
+		btnEliminarUsuario.setFocusPainted(false);
+		panelDch.add(btnEliminarUsuario);
 		
 		lblCerrar = new JLabel("Cerrar Sesion");
 		lblCerrar.setFont(new Font("Segoe UI", Font.PLAIN, 24));
@@ -189,14 +227,63 @@ public class Menu extends JFrame implements ActionListener {
 		btnCerrar.setBounds(644, 414, 260, 62);
 		panelDch.add(btnCerrar);
 		
+		lstClientes = new JList();
+		lstClientes.setBounds(88, 106, 746, 160);
+		panelDch.add(lstClientes);
+		
+		imgLista = new JLabel("");
+		imgLista.setHorizontalAlignment(SwingConstants.CENTER);
+		imgLista.setIcon(new ImageIcon("C:\\PROG\\ProyectoReto3G2\\src\\imagenes\\rectanguloLista.png"));
+		imgLista.setBounds(59, 86, 806, 199);
+		panelDch.add(imgLista);
+		
+		clickIzq = new JLabel("");
+		clickIzq.setIcon(new ImageIcon("C:\\PROG\\ProyectoReto3G2\\src\\imagenes\\clickFlechaIzq.png"));
+		clickIzq.setBounds(4, 144, 49, 80);
+		panelDch.add(clickIzq);
+		
+		focusIzq = new JLabel("");
+		focusIzq.setIcon(new ImageIcon("C:\\PROG\\ProyectoReto3G2\\src\\imagenes\\focusFlechaIzq.png"));
+		focusIzq.setBounds(4, 144, 49, 80);
+		panelDch.add(focusIzq);
+		
+		btnIzq = new JButton("");
+		btnIzq.setIcon(new ImageIcon("C:\\PROG\\ProyectoReto3G2\\src\\imagenes\\flechaIzq.png"));
+		btnIzq.setFocusPainted(false);
+		btnIzq.setContentAreaFilled(false);
+		btnIzq.setBorderPainted(false);
+		btnIzq.setBounds(10, 146, 49, 80);
+		panelDch.add(btnIzq);
+		
+		clickDch = new JLabel("");
+		clickDch.setIcon(new ImageIcon("C:\\PROG\\ProyectoReto3G2\\src\\imagenes\\clickFlechaDch.png"));
+		clickDch.setBounds(855, 146, 49, 80);
+		panelDch.add(clickDch);
+		
+		focusDch = new JLabel("");
+		focusDch.setIcon(new ImageIcon("C:\\PROG\\ProyectoReto3G2\\src\\imagenes\\focusFlechaDch.png"));
+		focusDch.setBounds(855, 146, 49, 80);
+		panelDch.add(focusDch);
+		
+		btnDch = new JButton("");
+		btnDch.setIcon(new ImageIcon("C:\\PROG\\ProyectoReto3G2\\src\\imagenes\\flechaDch.png"));
+		btnDch.setFocusPainted(false);
+		btnDch.setContentAreaFilled(false);
+		btnDch.setBorderPainted(false);
+		btnDch.setBounds(859, 147, 49, 80);
+		panelDch.add(btnDch);
+		
 		//Por Defecto\\
 		setLocation(350,200);
 		setVisible(true);
 		
-		clickBoton.setVisible(false);
 		focusBoton.setVisible(false);
 		focusCerrar.setVisible(false);
 		clickCerrar.setVisible(false);
+		focusIzq.setVisible(false);
+		clickIzq.setVisible(false);
+		focusDch.setVisible(false);
+		clickDch.setVisible(false);
 		
 		/*CUIDADO A VECES LOS LISTENERS SE PONEN ARRIBA, SOBRE TODO CUANDO SE FORMATEA EL DOCUMENTO*/
 		
@@ -206,19 +293,31 @@ public class Menu extends JFrame implements ActionListener {
 		btnClientes.addMouseListener(new eventosRaton());
 		contentPane.addMouseListener(new eventosRaton());
 		btnSalir.addMouseListener(new eventosRaton());
+		btnAgregarUsuario.addMouseListener(new eventosRaton());
+		btnEliminarUsuario.addMouseListener(new eventosRaton());
 		btnCerrar.addMouseListener(new eventosRaton());
 		btnTrabajadores.addMouseListener(new eventosRaton());
+		btnIzq.addMouseListener(new eventosRaton());
+		btnDch.addMouseListener(new eventosRaton());
 		// Listeners MouseMotionListener\\
 		lblDesplazarIzq.addMouseMotionListener(new eventosRaton2());
 		lblDesplazarDch.addMouseMotionListener(new eventosRaton2());
 		btnClientes.addMouseMotionListener(new eventosRaton2());
 		contentPane.addMouseMotionListener(new eventosRaton2());
+		btnAgregarUsuario.addMouseMotionListener(new eventosRaton2());
+		btnEliminarUsuario.addMouseMotionListener(new eventosRaton2());
 		btnTrabajadores.addMouseMotionListener(new eventosRaton2());
+		btnIzq.addMouseMotionListener(new eventosRaton2());
+		btnDch.addMouseMotionListener(new eventosRaton2());
 		// Listeners ActionListener\\
 		btnClientes.addActionListener(this);
 		btnSalir.addActionListener(this);
+		btnAgregarUsuario.addActionListener(this);
+		btnEliminarUsuario.addActionListener(this);
 		btnCerrar.addActionListener(this);
 		btnTrabajadores.addActionListener(this);
+		btnIzq.addActionListener(this);
+		btnDch.addActionListener(this);
 		
 		
 		/*
@@ -245,24 +344,16 @@ public class Menu extends JFrame implements ActionListener {
 		// SOLO si el componente NO está seleccionado, U OTRO COMPONENTE está seleccionado, hará focus.
 		// Revisa si otro componente está seleccionado revisando la posición
 		contentPane.setCursor(new Cursor(Cursor.HAND_CURSOR));
-		if (j == btnClientes) {
-			if (!clickBoton.isVisible() || clickBoton.getLocation() != new Point(-7,138)) {
-				focusBoton.setLocation(-3,138);
-				focusBoton.setVisible(true);
-			}
-		}
 		if (j == btnTrabajadores) {
-			if (!clickBoton.isVisible() || clickBoton.getLocation() != new Point(-7,210)) {
-				focusBoton.setLocation(-3,210);
+				focusBoton.setLocation(-7,210);
 				focusBoton.setVisible(true);
-			}
 		}
 	}
 	
 	public void clickBoton(JButton j) {
 		//Si es Clientes
 		if (j == btnClientes) {
-			new MenuClientes();
+			new Menu();
 			this.dispose();
 		}
 		//Si es trabajadores
@@ -284,6 +375,12 @@ public class Menu extends JFrame implements ActionListener {
 			else if (o == btnCerrar) {
 				clickCerrar.setVisible(true);
 			}
+			else if (o == btnIzq) {
+				clickIzq.setVisible(true);
+			}
+			else if (o == btnDch) {
+				clickDch.setVisible(true);
+			}
 		}
 
 		@Override
@@ -295,6 +392,12 @@ public class Menu extends JFrame implements ActionListener {
 			else if (o == btnCerrar) {
 				clickCerrar.setVisible(false);
 			}
+			else if (o == btnIzq) {
+				clickIzq.setVisible(false);
+			}
+			else if (o == btnDch) {
+				clickDch.setVisible(false);
+			}
 		}
 		
 		@Override
@@ -304,13 +407,13 @@ public class Menu extends JFrame implements ActionListener {
 			if (o == btnClientes) {focusBoton(btnClientes);}
 			else if (o == btnTrabajadores) {focusBoton(btnTrabajadores);}
 			
-			/*else if (o == btnAgregarUsuario) {	
+			else if (o == btnAgregarUsuario) {	
 				btnAgregarUsuario.setBackground(new Color(232, 232, 232));
 			}
 			
 			else if (o == btnEliminarUsuario) {
 				btnEliminarUsuario.setBackground(new Color(232, 232, 232));
-			}*/
+			}
 
 			else if (o == btnSalir) {
 				btnSalir.setContentAreaFilled(true);
@@ -318,6 +421,12 @@ public class Menu extends JFrame implements ActionListener {
 			}
 			else if (o == btnCerrar) {
 				focusCerrar.setVisible(true);
+			}
+			else if (o == btnIzq) {
+				focusIzq.setVisible(true);
+			}
+			else if (o == btnDch) {
+				focusDch.setVisible(true);
 			}
 		}
 
@@ -331,14 +440,20 @@ public class Menu extends JFrame implements ActionListener {
 			else if (o == btnSalir) {
 				btnSalir.setContentAreaFilled(false);
 			}
-			/*else if (o == btnAgregarUsuario) {
+			else if (o == btnAgregarUsuario) {
 				btnAgregarUsuario.setBackground(new Color(199, 199, 199));
 			}
 			else if (o == btnEliminarUsuario) {
 				btnEliminarUsuario.setBackground(new Color(199, 199, 199));
-			}*/
+			}
 			else if (o == btnCerrar) {
 				focusCerrar.setVisible(false);
+			}
+			else if (o == btnIzq) {
+				focusIzq.setVisible(false);
+			}
+			else if (o == btnDch) {
+				focusDch.setVisible(false);
 			}
 		}
 	}
@@ -367,7 +482,6 @@ public class Menu extends JFrame implements ActionListener {
 		
 		if (o == btnClientes) {
 			clickBoton(btnClientes);
-			
 		}
 		else if (o == btnTrabajadores) {
 			clickBoton(btnTrabajadores);
